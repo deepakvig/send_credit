@@ -1,0 +1,11 @@
+.container
+  .home-inner
+    .home-title
+      h1 Send Credit App
+
+    - if user_signed_in?
+      p.strong Welcome #{current_user.email}!
+      = link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-lg btn-default"
+    - else
+      = link_to "Sign up", new_user_registration_path, class: "btn btn-lg btn-default"
+      = link_to "Log in", new_user_session_path, class: "btn btn-lg btn-default home-login-button"
