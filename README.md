@@ -55,3 +55,8 @@ $ bundle exec rspec
 ```
 
 ## Heroku
+
+
+## routes
+To get current logged in user details : /api/v1/users/current.json
+Root Url will ask user to create account and then login

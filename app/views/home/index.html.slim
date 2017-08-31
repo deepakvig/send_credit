@@ -4,8 +4,26 @@
       h1 Send Credit App
 
     - if user_signed_in?
-      p.strong Welcome #{current_user.email}!
-      = link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-lg btn-default"
+      .container
+        h2
+          = raw("Send Credits (Your Credits: " + "<span id='credits'>" + current_user.credits.to_s + "</span>)")
+        = link_to "Transaction History", credit_transactions_path, class: "btn btn-lg btn-default"
+        table.table.table-bordered
+          thead
+            tr
+              th Email
+              th Credits
+              th Date
+          tbody
+            - @users.each do |user|
+              tr
+                = form_for @credit_transaction, remote: true do |f|
+                  .form-group
+                    td
+                      = user.email
+                      = f.hidden_field :recipient_id, :value => user.id
+                    td= f.text_field :credits, class: "form-control", placeholder: "Add Credits", id: "credits_#{user.id}"
+                    td= f.submit "Send", class: "button btn btn-default"
     - else
       = link_to "Sign up", new_user_registration_path, class: "btn btn-lg btn-default"
       = link_to "Log in", new_user_session_path, class: "btn btn-lg btn-default home-login-button"

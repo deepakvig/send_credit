@@ -1,0 +1,19 @@
+.container
+  .home-inner
+    .home-title
+      h1 Credit Transaction History
+
+    - if user_signed_in?
+      .container
+        table.table.table-bordered
+          thead
+            tr
+              th Email
+              th Credits
+              th
+          tbody
+            - @credit_transactions.each do |credit_transaction|
+              tr
+                td= credit_transaction.recipient.email
+                td= credit_transaction.credits
+                td= credit_transaction.created_at
