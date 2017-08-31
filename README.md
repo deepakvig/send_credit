@@ -56,6 +56,7 @@ $ bundle exec rspec
 
 ## Heroku
 
+https://frozen-dawn-84257.herokuapp.com/
 
 ## routes
 To get current logged in user details : /api/v1/users/current.json
