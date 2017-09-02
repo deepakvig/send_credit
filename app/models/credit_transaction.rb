@@ -15,13 +15,17 @@ class CreditTransaction < ApplicationRecord
     end
 
     def update_sender_credits
-      user = self.sender
-      user.credits = user.credits - self.credits
-      user.save
+      sender_account = self.sender
+      recipient_account = self.recipient
+      User.transaction do
+        sender_account.credits -= self.credits
+        sender_account.save!
 
-      user = self.recipient
-      user.credits = user.credits + self.credits
-      user.save
+        recipient_account.credits += self.credits
+        recipient_account.save!
+      end
+    rescue ActiveRecord::RecordInvalid => exception
+      self.delete
     end
 
 end

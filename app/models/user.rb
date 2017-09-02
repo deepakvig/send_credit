@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :credit_transactions, :foreign_key => :sender_id
 
+  validates_numericality_of :credits, greater_than_or_equal_to: 0
+
   DEFAULT_USER_CREDITS = 100
 
   before_create :set_default_credits
